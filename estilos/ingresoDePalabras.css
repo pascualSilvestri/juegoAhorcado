@@ -39,17 +39,21 @@ main{
     align-items: center;
 }
 
-#ingrar-palabra{
+#ingresar-palabra{
     border:none;
     width: 400px;
     height: 50px;
     background-color:#E5E5E5;
-}
-
-#ingrar-palabra::placeholder{
     color:#0A3871;
     font-weight: bold;
     font-size: 1.7em; 
+
+}
+
+#ingresar-palabra::placeholder{
+    color:#0A3871;
+    font-weight: bold;
+    font-size: 1em; 
 }
 
 #section-btn{
