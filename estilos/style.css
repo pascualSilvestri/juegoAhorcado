@@ -33,7 +33,7 @@ main{
 
 #div-btn{
     width: 30vh;
-    height: 30vh;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -87,7 +87,7 @@ footer{
 
 @media screen and (max-width:780px){
     #div-btn{
-        height: 45vh;
+        height: 80%;
 
     }
 }
