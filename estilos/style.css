@@ -46,6 +46,11 @@ main{
     background-color: #0A3871;
     border:none;
     border-radius: 30px;
+    color:#fff;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #btn-palabra{
@@ -54,21 +59,13 @@ main{
     background-color: #E5E5E5;
     border:1px solid #0A3871;
     border-radius: 20px;
-}
-
-#btn-iniciar a{
-    color:#fff;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-#btn-palabra a{
     color:#0A3871;
     text-decoration: none;
     font-size: 20px;
     font-weight: bold;
+    cursor: pointer;
 }
+
 
 footer{
     width: 100%;
