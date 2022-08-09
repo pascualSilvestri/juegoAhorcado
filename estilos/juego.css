@@ -46,24 +46,33 @@ main{
     justify-content: center;
 }
 
-#canvas1{
+#canvas{
     background-color: #E5E5E5;
-    width: 300px;
-    height: 350px;
+    width: 450px;
+    height: 400px;
 }
-#canvas2{
+
+.mensaje-final{
+    position:absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color:#3334;
     display: none;
+    justify-content: center;
+    align-items: center;
 }
 
-
-#mensaje-final-gano{
+.mensaje-final-gano{
     margin-left: 30px;
     font-size: 2em;
     color:#0f0;
     font-weight: bold;
+    background-color:#0A3871;
+    padding:10px;
+    border-radius: 20px;
 }
 
-#mensaje-final-perdio{
+.mensaje-final-perdio{
     margin-left: 30px;
     font-size: 2em;
     color:#f00;
@@ -74,7 +83,7 @@ main{
     width: 100%;
     height: 15%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -177,8 +186,8 @@ footer{
     #img-logo{
         margin-left: 40px;
     }
-    #canvas1{
-        width: 200px;
+    #canvas{
+        width: 300px;
         height: 300px;
         display:block;
     }
@@ -200,6 +209,10 @@ footer{
         height: 50px;
         border-radius: 30px;
         border:1px solid #0A3871;
+    }
+
+    #palabra{
+        align-items: flex-end;
     }
 
     .letras{
