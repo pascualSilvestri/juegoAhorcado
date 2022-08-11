@@ -11,22 +11,50 @@ let palabras = [
     'frutilla',
     'cazon',
     'calzon',
-    'cruel'
+    'cruel',
+    'playa',
+    'argentina',
+    'venezuela'
 ];
 
+let paginaInicial = document.getElementById('pagina-inicial'); //pagina inicial
+let paginaJuego = document.getElementById('pagina-juego'); // pagina del juego
+let paginaPalabra = document.getElementById('pagina-ingreso-palabra'); // pagina para ingresar nueva palabras
 
-let divPalabra = document.getElementById('palabra');
+let btnIniciar = document.getElementById('btn-iniciar'); // boton iniciar juego
+let btnPalabra = document.getElementById('btn-palabra'); // boton agregar palabra
 
+let btnNuevo = document.getElementById('btn-nuevo'); // boton para juego nuevo
+let btnDesistir = document.getElementById('btn-desistir'); // boton desistir
+
+let btnGuardar = document.getElementById('btn-guardar');  // Boto guardar 
+let btnCancelar = document.getElementById('btn-cancelar'); // boton para cancelar agragar palabra
+
+let divPalabra = document.getElementById('palabra');  // el div para las letras de la palabras
+let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
+let body = document.querySelector('body');
 // Funciones -----------------
 
 
+// document.addEventListener('keydown',evaluarPalabra);  // Muestra la tecla precionada
+
+function evaluarPalabra(e){
+    let palabra = sortearPalabras();
+}
+
+
+function ingresarNuevaPalabra(){
+    let palabra = agregarPalabra.value;
+    palabras.push(palabra);
+    console.log(palabras);
+}
 
 function mostrarCon(arg){
     console.log(arg);
 }
 
 
-function sorteraPalabras(){
+function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
     let palabra = palabras.slice(aleatorio,aleatorio+1);
     mostrarCon(palabra);
@@ -41,14 +69,50 @@ function crearDiv(letra){
     divPalabra.appendChild(div);
 }
 
+function mensajePerdio(arg){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let parrafo = document.createElement('p');
+    if(arg === 10){
+        mensajeFinal.appendChild(parrafo);
+        parrafo.innerText = "Usted ha perdido";
+        mensajeFinal.style.display = "flex";
+        parrafo.classList.add("mensaje-final-perdio");
+    }else{
+        mensajeFinal.style.display = "none";
+    }
+}
 
-crearDiv('A');
-crearDiv('B');
-crearDiv('C');
+// Eventos Botones ----------------
+
+btnIniciar.addEventListener('click',()=>{
+    paginaInicial.style.display = 'none';
+    paginaJuego.style.display = 'flex';
+});
+
+btnPalabra.addEventListener('click',()=>{
+    paginaInicial.style.display = 'none';
+    paginaPalabra.style.display = 'flex';
+});
+
+btnDesistir.addEventListener('click',()=>{
+    paginaInicial.style.display = 'flex';
+    paginaJuego.style.display = 'none';
+});
+
+btnCancelar.addEventListener('click',()=>{
+    paginaInicial.style.display = 'flex';
+    paginaPalabra.style.display = 'none';
+});
+
+btnGuardar.addEventListener('click',()=>{
+    paginaJuego.style.display = 'flex';
+    paginaPalabra.style.display = 'none';
+});
 
 
+// btnNuevo.addEventListener("click", );
 
-let prueba = sorteraPalabras();
+let prueba = sortearPalabras();
 
 
 
@@ -84,16 +148,16 @@ function dibujarLinea(poX,poY,poX2,poY2,color){
     pincel.stroke();
 }
 
-dibujarLinea(170,70,130,90,'#0A3871');//brazo izquierda
-dibujarLinea(170,105,130,120,'#0A3871');//pierna izquierdo
-dibujarLinea(172,70,210,90,'#0A3871');//brezo derecha
-dibujarLinea(172,105,210,120,'#0A3871');//pierna derecha
-crearCirculo(172,50,15,0,'#0A3871'); //cabeza
-crearRectangulo(50,15,10,120,'#0A3871'); //mastil
-crearRectangulo(10,130,250,5,'#0A3871'); //suelo
-crearRectangulo(50,15,150,5,'#0A3871'); // trabesaño
-crearRectangulo(170,15,5,20,'#0A3871'); //soga
-crearRectangulo(169,65,5,40,'#0A3871');  ///cuerpo
+crearCirculo(187,44,10,0,'#0A3871'); //cabeza
+crearRectangulo(185,15,3,20,'#0A3871'); //soga
+crearRectangulo(185,54,3,40,'#0A3871');  ///cuerpo
+dibujarLinea(185,60,170,80,'#0A3871');//brazo izquierda
+dibujarLinea(185,94,170,113,'#0A3871');//pierna izquierdo
+dibujarLinea(188,60,205,80,'#0A3871');//brezo derecha
+dibujarLinea(188,94,205 ,113,'#0A3871');//pierna derecha
+crearRectangulo(120,15,100,3,'#0A3871'); // trabesaño
+crearRectangulo(120,15,3,118,'#0A3871'); //mastil
+crearRectangulo(80,130,150,3,'#0A3871'); //suelo
 
 
 
