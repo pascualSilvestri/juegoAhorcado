@@ -1,5 +1,4 @@
 // Definir variables 
-
 let palabras = [
     'pezcado',
     'hormiga',
@@ -13,8 +12,12 @@ let palabras = [
     'calzon',
     'cruel',
     'playa',
-    'argentina',
-    'venezuela'
+    'puro',
+    'pure',
+    'luna',
+    'princesa',
+    'nala'
+
 ];
 
 let paginaInicial = document.getElementById('pagina-inicial'); //pagina inicial
@@ -31,15 +34,17 @@ let btnGuardar = document.getElementById('btn-guardar');  // Boto guardar
 let btnCancelar = document.getElementById('btn-cancelar'); // boton para cancelar agragar palabra
 
 let divPalabra = document.getElementById('palabra');  // el div para las letras de la palabras
+let letrasError = document.getElementById('letras-error'); // div de las letras de error
+
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let body = document.querySelector('body');
+
+let palabraRandom = sortearPalabras().join();
 // Funciones -----------------
 
 
-// document.addEventListener('keydown',evaluarPalabra);  // Muestra la tecla precionada
-
-function evaluarPalabra(e){
-    let palabra = sortearPalabras();
+function mostrarCon(arg){
+    console.log(arg);
 }
 
 
@@ -47,10 +52,7 @@ function ingresarNuevaPalabra(){
     let palabra = agregarPalabra.value;
     palabras.push(palabra);
     console.log(palabras);
-}
-
-function mostrarCon(arg){
-    console.log(arg);
+    return palabra;
 }
 
 
@@ -58,16 +60,41 @@ function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
     let palabra = palabras.slice(aleatorio,aleatorio+1);
     mostrarCon(palabra);
-    mostrarCon(aleatorio);
     return palabra;
 }
 
-function crearDiv(letra){
-    let div = document.createElement('div');
-    div.innerText = letra;
-    div.classList.add('letras'); 
-    divPalabra.appendChild(div);
+
+function crearDivVacio(palabra){
+        for (let i = 0; i < palabra.length; i++){
+            let div = document.createElement('div');
+            div.classList.add('letras'); 
+            divPalabra.appendChild(div);
+        }
+    
+   
 }
+
+// function insertarLetras(palabra){
+//     let listDiv = document.getElementsByClassName('letras');
+//     for (let i=0; i<palabra.length; i++){
+//         let p = document.createElement('p');
+//         let letra = palabra[i];
+//         p.innerText = letra;
+//         p.classList.add('p-letras');
+//         listDiv[i].appendChild(p);
+//     }
+
+// }
+
+function removerDiv(){
+    let listDiv = document.getElementsByClassName("letras"); 
+    for(let i = 0 ; i < listDiv.length; i++){
+        divPalabra.removeChild(listDiv[i]);
+    }
+}
+
+
+
 
 function mensajePerdio(arg){
     let mensajeFinal = document.querySelector('.mensaje-final');
@@ -82,11 +109,32 @@ function mensajePerdio(arg){
     }
 }
 
+function mostrarLetras(){
+    document.addEventListener('keydown',function evaluarPalabra(e){
+        let letraPresionada = e.key;    
+        let listDiv = document.getElementsByClassName('letras');
+        for (let i=0; i < palabraRandom.length; i++) {
+            if(letraPresionada === palabraRandom[i]){
+                let p = document.createElement('p');
+                p.innerText = letraPresionada;
+                p.classList.add('p-letras');
+                listDiv[i].appendChild(p);
+            }
+        }  
+    });
+}
+
+
+
+
+
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
+    crearDivVacio(palabraRandom); 
+    mostrarLetras();
 });
 
 btnPalabra.addEventListener('click',()=>{
@@ -109,10 +157,19 @@ btnGuardar.addEventListener('click',()=>{
     paginaPalabra.style.display = 'none';
 });
 
+btnNuevo.addEventListener('click',()=>{
+    // mostrarLetras(palabraRandom);
+    removerDiv();
+    
+});
+
+
+  // Muestra la tecla precionada
+
+
 
 // btnNuevo.addEventListener("click", );
 
-let prueba = sortearPalabras();
 
 
 
