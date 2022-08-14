@@ -39,7 +39,7 @@ let letrasError = document.getElementById('letras-error'); // div de las letras 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let body = document.querySelector('body');
 
-let palabraRandom = sortearPalabras().join();
+let palabraRandom = sortearPalabras().join().toUpperCase();
 // Funciones -----------------
 
 
@@ -75,7 +75,7 @@ function crearDivVacio(palabra){
 }
 
 // function insertarLetras(palabra){
-//     let listDiv = document.getElementsByClassName('letras');
+//     let listDiv = document.getElementsByClassName('letras'); 
 //     for (let i=0; i<palabra.length; i++){
 //         let p = document.createElement('p');
 //         let letra = palabra[i];
@@ -93,6 +93,15 @@ function removerDiv(){
     }
 }
 
+function letrasIguales(a,b){
+    for(let i=0; i<a.length; i++){
+        if(a === b[i]){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
 
 
 
@@ -110,18 +119,25 @@ function mensajePerdio(arg){
 }
 
 function mostrarLetras(){
-    document.addEventListener('keydown',function evaluarPalabra(e){
-        let letraPresionada = e.key;    
-        let listDiv = document.getElementsByClassName('letras');
-        for (let i=0; i < palabraRandom.length; i++) {
-            if(letraPresionada === palabraRandom[i]){
-                let p = document.createElement('p');
-                p.innerText = letraPresionada;
-                p.classList.add('p-letras');
-                listDiv[i].appendChild(p);
+    document.addEventListener('click', function clickPantalla(){
+        document.addEventListener('keydown',function evaluarPalabra(e){
+            let letraPresionada = e.key.toUpperCase();    
+            let listDiv = document.getElementsByClassName('letras');
+            let p = document.getElementsByClassName('p-letras');
+            let p1 = document.createElement('p');
+            let p2 = document.createElement('p');
+            for (let i=0; i < palabraRandom.length; i++) {
+                if(letraPresionada === palabraRandom[i]){
+                    p1.innerText = letraPresionada;
+                    p1.classList.add('p-letras');
+                    listDiv[i].appendChild(p1);
+                    break;
+                }
             }
-        }  
-    });
+        });
+        
+    })
+    
 }
 
 
