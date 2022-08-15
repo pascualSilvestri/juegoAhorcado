@@ -118,7 +118,7 @@ function ingresarLetra(letra,index){
         let listDiv = document.getElementsByClassName('letras');
         let input = document.createElement('input');
         input.value = letra;
-        input.focus();
+        listDiv[1].focus();
         input.classList.add('p-letras');
         listDiv[index].appendChild(input);
 }
