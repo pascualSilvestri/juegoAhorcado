@@ -62,13 +62,6 @@ function mostrarCon(arg){
 }
 
 
-function ingresarNuevaPalabra(){
-    let palabra = agregarPalabra.value;
-    palabras.push(palabra);
-    console.log(palabras);
-    return palabra;
-}
-
 
 function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
@@ -90,14 +83,9 @@ function crearDivVacio(palabra){
 
 
 function removerDiv(){
-    let listDiv = document.getElementsByClassName("letras"); 
-    for(let i = 0 ; i < listDiv.length; i++){
-        divPalabra.removeChild(listDiv[i]);
-    }
+
+    divPalabra.remove();
 }
-
-
-
 
 
 function mensajePerdio(arg){
@@ -128,10 +116,11 @@ function error(arg){
 
 function ingresarLetra(letra,index){
         let listDiv = document.getElementsByClassName('letras');
-        let p = document.createElement('p');
-        p.innerText = letra;
-        p.classList.add('p-letras');
-        listDiv[index].appendChild(p);
+        let input = document.createElement('input');
+        input.value = letra;
+        input.focus();
+        input.classList.add('p-letras');
+        listDiv[index].appendChild(input);
 }
 
 function letrasIguales(letra,palabra){
@@ -145,16 +134,8 @@ function letrasIguales(letra,palabra){
 }
 
 
-function letrasIJ(letra,palabra){   
-    if(palabra.includes(letra)===true){
-        let index = palabra.indexOf(letra);
-        if(palabra[index]===palabra[index+1]){
-            return true;
-        }
-    }
-}
-
 function mostrarLetras(){
+    crearDivVacio(palabraRandom);
     document.addEventListener('keydown',(e)=>{
         let letraPresionada = e.key.toUpperCase();    
         let palabra = palabraRandom.toUpperCase();
@@ -174,10 +155,6 @@ function mostrarLetras(){
     });
 }
 
-function prueba(arg){
-    console.log(palabraRandom.indexOf(arg));
-}
-
 
 
 
@@ -189,9 +166,7 @@ function prueba(arg){
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    crearDivVacio(palabraRandom); 
     mostrarLetras();
-    mostrarCon(arrPalabra);
 });
 
 btnPalabra.addEventListener('click',()=>{
@@ -202,6 +177,7 @@ btnPalabra.addEventListener('click',()=>{
 btnDesistir.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaJuego.style.display = 'none';
+    removerDiv();
 });
 
 btnCancelar.addEventListener('click',()=>{
