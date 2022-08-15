@@ -16,7 +16,12 @@ let palabras = [
     'pure',
     'luna',
     'princesa',
-    'nala'
+    'nala',
+    'lluvia',
+    'llave',
+    'carro',
+    'perro',
+    'password'
 
 ];
 
@@ -40,8 +45,17 @@ let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingres
 let body = document.querySelector('body');
 
 let palabraRandom = sortearPalabras().join().toUpperCase();
+
+let arrPalabra =  crearArr(palabraRandom);
 // Funciones -----------------
 
+function crearArr(arg){
+    let arr = [];
+    for(let i = 0; i < arg.length ; i++){
+        arr.push(arg[i]);
+    }
+    return arr;
+}
 
 function mostrarCon(arg){
     console.log(arg);
@@ -74,17 +88,6 @@ function crearDivVacio(palabra){
    
 }
 
-// function insertarLetras(palabra){
-//     let listDiv = document.getElementsByClassName('letras'); 
-//     for (let i=0; i<palabra.length; i++){
-//         let p = document.createElement('p');
-//         let letra = palabra[i];
-//         p.innerText = letra;
-//         p.classList.add('p-letras');
-//         listDiv[i].appendChild(p);
-//     }
-
-// }
 
 function removerDiv(){
     let listDiv = document.getElementsByClassName("letras"); 
@@ -93,15 +96,7 @@ function removerDiv(){
     }
 }
 
-function letrasIguales(a,b){
-    for(let i=0; i<a.length; i++){
-        if(a === b[i]){
-            return true;
-        }else{
-            return false;
-        }
-    }
-}
+
 
 
 
@@ -118,27 +113,72 @@ function mensajePerdio(arg){
     }
 }
 
-function mostrarLetras(){
-    document.addEventListener('click', function clickPantalla(){
-        document.addEventListener('keydown',function evaluarPalabra(e){
-            let letraPresionada = e.key.toUpperCase();    
-            let listDiv = document.getElementsByClassName('letras');
-            let p = document.getElementsByClassName('p-letras');
-            let p1 = document.createElement('p');
-            let p2 = document.createElement('p');
-            for (let i=0; i < palabraRandom.length; i++) {
-                if(letraPresionada === palabraRandom[i]){
-                    p1.innerText = letraPresionada;
-                    p1.classList.add('p-letras');
-                    listDiv[i].appendChild(p1);
-                    break;
-                }
-            }
-        });
-        
-    })
-    
+function error(arg){
+    let p = document.createElement('p');
+    let contador = 0;
+        if(palabraRandom.toUpperCase().indexOf(arg) < 0){
+            p.innerText = arg;
+            p.classList.add('error');
+            letrasError.appendChild(p);
+            vidas(contador);
+        }
 }
+
+
+
+function ingresarLetra(letra,index){
+        let listDiv = document.getElementsByClassName('letras');
+        let p = document.createElement('p');
+        p.innerText = letra;
+        p.classList.add('p-letras');
+        listDiv[index].appendChild(p);
+}
+
+function letrasIguales(letra,palabra){
+    if(palabra.includes(letra)===true){
+        let index = palabra.indexOf(letra);
+        let index2 = palabra.indexOf(letra,index+1);
+        if(palabra[index]===palabra[index2]){
+            ingresarLetra(letra,index2);
+        }
+    }
+}
+
+
+function letrasIJ(letra,palabra){   
+    if(palabra.includes(letra)===true){
+        let index = palabra.indexOf(letra);
+        if(palabra[index]===palabra[index+1]){
+            return true;
+        }
+    }
+}
+
+function mostrarLetras(){
+    document.addEventListener('keydown',(e)=>{
+        let letraPresionada = e.key.toUpperCase();    
+        let palabra = palabraRandom.toUpperCase();
+
+        if(palabra.includes(letraPresionada)===true){
+            let index = palabra.indexOf(letraPresionada);
+            ingresarLetra(letraPresionada,index);
+        }
+        else{
+            error(letraPresionada);
+        }
+        if(palabra.includes(letraPresionada) === true){
+            let index = palabra.indexOf(letraPresionada);
+            letrasIguales(letraPresionada,palabra);
+        }
+        
+    });
+}
+
+function prueba(arg){
+    console.log(palabraRandom.indexOf(arg));
+}
+
+
 
 
 
@@ -151,6 +191,7 @@ btnIniciar.addEventListener('click',()=>{
     paginaJuego.style.display = 'flex';
     crearDivVacio(palabraRandom); 
     mostrarLetras();
+    mostrarCon(arrPalabra);
 });
 
 btnPalabra.addEventListener('click',()=>{
@@ -175,8 +216,6 @@ btnGuardar.addEventListener('click',()=>{
 
 btnNuevo.addEventListener('click',()=>{
     // mostrarLetras(palabraRandom);
-    removerDiv();
-    
 });
 
 
@@ -221,16 +260,49 @@ function dibujarLinea(poX,poY,poX2,poY2,color){
     pincel.stroke();
 }
 
-crearCirculo(187,44,10,0,'#0A3871'); //cabeza
-crearRectangulo(185,15,3,20,'#0A3871'); //soga
-crearRectangulo(185,54,3,40,'#0A3871');  ///cuerpo
-dibujarLinea(185,60,170,80,'#0A3871');//brazo izquierda
-dibujarLinea(185,94,170,113,'#0A3871');//pierna izquierdo
-dibujarLinea(188,60,205,80,'#0A3871');//brezo derecha
-dibujarLinea(188,94,205 ,113,'#0A3871');//pierna derecha
-crearRectangulo(120,15,100,3,'#0A3871'); // trabesaño
-crearRectangulo(120,15,3,118,'#0A3871'); //mastil
-crearRectangulo(80,130,150,3,'#0A3871'); //suelo
+function vidas(arg){
+    if(arg==1){
+        crearRectangulo(80,130,150,3,'#0A3871');
+    }
+    if(arg == 2){
+        crearRectangulo(120,15,3,118,'#0A3871'); 
+    }
+    if(arg == 3){
+        crearRectangulo(120,15,100,3,'#0A3871');
+    }
+    if(arg == 4){
+        crearRectangulo(185,15,3,20,'#0A3871');
+    }
+    if(arg == 5){
+        crearRectangulo(185,15,3,20,'#0A3871');
+    }
+    if(arg == 6){
+        crearRectangulo(185,54,3,40,'#0A3871'); 
+    }
+    if(arg == 7){
+        dibujarLinea(185,60,170,80,'#0A3871');
+    }
+    if(arg == 8){
+        dibujarLinea(185,94,170,113,'#0A3871');
+    }
+    if(arg == 9){
+        dibujarLinea(188,60,205,80,'#0A3871');
+    }
+    if(arg == 10){
+        dibujarLinea(188,94,205 ,113,'#0A3871');
+    }
+}
+
+//cabeza
+ //soga
+ ///cuerpo
+//brazo izquierda
+//pierna izquierdo
+//brezo derecha
+//pierna derecha
+ // trabesaño
+//mastil
+ //suelo
 
 
 
