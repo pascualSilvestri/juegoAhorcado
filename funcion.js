@@ -69,11 +69,12 @@ function sortearPalabras(){
 function crearDivVacio(palabra){
         for (let i = 0; i < palabra.length; i++){
             let div = document.createElement('div');
+            let input = document.createElement('input');
+            input.classList.add('p-letras');
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
+            div.appendChild(input);
         }
-    
-   
 }
 
 
@@ -101,10 +102,11 @@ function mensajePerdio(arg){
     }
 }
 
-function error(arg){
+function error(arg,palabra){
     let p = document.createElement('p');
     let contador = 0;
-        if(palabraRandom.indexOf(arg) < 0){
+        if(palabra.indexOf(arg) < 0){
+            if(palabra.includes(arg))
             p.innerText = arg;
             p.classList.add('error');
             letrasError.appendChild(p);
@@ -116,15 +118,14 @@ function error(arg){
 
 function ingresarLetra(letra,index){
         let listDiv = document.getElementsByClassName('letras');
-        let input = document.createElement('input');
-        input.value = letra;
-        listDiv[1].focus();
-        input.classList.add('p-letras');
-        listDiv[index].appendChild(input);
+        let input = document.getElementsByClassName('p-letras');
+        input[index].value = letra;
+        listDiv[index].appendChild(input[index]);
 }
 
 function letrasIguales(letra,palabra){
     if(palabra.includes(letra)===true){
+
         let index = palabra.indexOf(letra);
         let index2 = palabra.indexOf(letra,index+1);
         if(palabra[index]===palabra[index2]){
@@ -143,8 +144,6 @@ function letraPresionada(){   // Obtiene la letra presionada por teclado
             if(redex.test(teclaPresionada)){
                 console.log('Tecla Presionada es: ' + teclaPresionada + ' ' + typeof(code))
                 return code;
-            }else{
-               alert('Ingresa solo letras')
             }
         }
     });
@@ -159,22 +158,23 @@ function mostrarLetras(pala){
         let letraPresionada = e.key.toUpperCase();    
         let palabra = pala.toUpperCase();
         let code = e.keyCode;
+        let index = palabra.indexOf(letraPresionada);
+        let listInput = document.getElementsByClassName('p-letras');
+
         if(code >= 65 && code <= 90 || code === 192){
+
             if(palabra.includes(letraPresionada)===true){
-                let index = palabra.indexOf(letraPresionada);
-                let listInput = document.getElementsByClassName('p-letras');
+                
                 ingresarLetra(letraPresionada,index);   
-                console.log(listInput[index].value) 
+                console.log(listInput[index]); 
             }
-            else{
-                error(letraPresionada);
+             else{
+                error(letraPresionada,palabra);
             }
             if(palabra.includes(letraPresionada) === true){
                 letrasIguales(letraPresionada,palabra);
-            }
+            }   
         }
-        
-        
     });
 }
 
