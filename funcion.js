@@ -44,9 +44,8 @@ let letrasError = document.getElementById('letras-error'); // div de las letras 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let body = document.querySelector('body');
 
-let palabraRandom = sortearPalabras().join().toUpperCase();
 
-let arrPalabra =  crearArr(palabraRandom);
+
 // Funciones -----------------
 
 function crearArr(arg){
@@ -55,10 +54,6 @@ function crearArr(arg){
         arr.push(arg[i]);
     }
     return arr;
-}
-
-function mostrarCon(arg){
-    console.log(arg);
 }
 
 
@@ -82,9 +77,14 @@ function crearDivVacio(palabra){
 }
 
 
-function removerDiv(){
+function removerDiv(palabra){    //lista
+    let listDiv = document.getElementsByClassName('letras');
+    for (let i = 0; i < palabra.length; i++) {
 
-    divPalabra.remove();
+        divPalabra.removeChild(listDiv[0]);
+
+    }
+    
 }
 
 
@@ -104,7 +104,7 @@ function mensajePerdio(arg){
 function error(arg){
     let p = document.createElement('p');
     let contador = 0;
-        if(palabraRandom.toUpperCase().indexOf(arg) < 0){
+        if(palabraRandom.indexOf(arg) < 0){
             p.innerText = arg;
             p.classList.add('error');
             letrasError.appendChild(p);
@@ -134,23 +134,46 @@ function letrasIguales(letra,palabra){
 }
 
 
-function mostrarLetras(){
-    crearDivVacio(palabraRandom);
+function letraPresionada(){   // Obtiene la letra presionada por teclado
+    document.addEventListener('keydown', (e)=>{
+        let teclaPresionada = e.key.toLocaleUpperCase();
+        let code = e.keyCode;
+        let redex = /[^0-9]|[A-Za-z]/;
+        if(code >= 65 && code <= 90 || code === 192){
+            if(redex.test(teclaPresionada)){
+                console.log('Tecla Presionada es: ' + teclaPresionada + ' ' + typeof(code))
+                return code;
+            }else{
+               alert('Ingresa solo letras')
+            }
+        }
+    });
+}
+
+
+
+
+function mostrarLetras(pala){
+    crearDivVacio(pala);
     document.addEventListener('keydown',(e)=>{
         let letraPresionada = e.key.toUpperCase();    
-        let palabra = palabraRandom.toUpperCase();
-
-        if(palabra.includes(letraPresionada)===true){
-            let index = palabra.indexOf(letraPresionada);
-            ingresarLetra(letraPresionada,index);
+        let palabra = pala.toUpperCase();
+        let code = e.keyCode;
+        if(code >= 65 && code <= 90 || code === 192){
+            if(palabra.includes(letraPresionada)===true){
+                let index = palabra.indexOf(letraPresionada);
+                let listInput = document.getElementsByClassName('p-letras');
+                ingresarLetra(letraPresionada,index);   
+                console.log(listInput[index].value) 
+            }
+            else{
+                error(letraPresionada);
+            }
+            if(palabra.includes(letraPresionada) === true){
+                letrasIguales(letraPresionada,palabra);
+            }
         }
-        else{
-            error(letraPresionada);
-        }
-        if(palabra.includes(letraPresionada) === true){
-            let index = palabra.indexOf(letraPresionada);
-            letrasIguales(letraPresionada,palabra);
-        }
+        
         
     });
 }
@@ -158,7 +181,7 @@ function mostrarLetras(){
 
 
 
-
+let palabraRandom = sortearPalabras().join().toUpperCase();
 
 
 // Eventos Botones ----------------
@@ -166,7 +189,8 @@ function mostrarLetras(){
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    mostrarLetras();
+    letraPresionada();
+    mostrarLetras(palabraRandom);
 });
 
 btnPalabra.addEventListener('click',()=>{
@@ -177,7 +201,7 @@ btnPalabra.addEventListener('click',()=>{
 btnDesistir.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaJuego.style.display = 'none';
-    removerDiv();
+    removerDiv(palabraRandom);
 });
 
 btnCancelar.addEventListener('click',()=>{
@@ -191,8 +215,12 @@ btnGuardar.addEventListener('click',()=>{
 });
 
 btnNuevo.addEventListener('click',()=>{
-    // mostrarLetras(palabraRandom);
+    mostrarCon();
 });
+
+function mostrarCon(){
+    let listDiv = document.getElementsByClassName('letras');
+}
 
 
   // Muestra la tecla precionada
