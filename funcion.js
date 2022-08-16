@@ -71,6 +71,7 @@ function crearDivVacio(palabra){
             let div = document.createElement('div');
             let input = document.createElement('input');
             input.classList.add('p-letras');
+            input.readOnly = true;
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
             div.appendChild(input);
@@ -106,7 +107,6 @@ function error(arg,palabra){
     let p = document.createElement('p');
     let contador = 0;
         if(palabra.indexOf(arg) < 0){
-            if(palabra.includes(arg))
             p.innerText = arg;
             p.classList.add('error');
             letrasError.appendChild(p);
@@ -149,7 +149,9 @@ function letraPresionada(){   // Obtiene la letra presionada por teclado
     });
 }
 
-
+function mostrarCon(arg){
+    console.log(arg);
+}
 
 
 function mostrarLetras(pala){
@@ -191,6 +193,7 @@ btnIniciar.addEventListener('click',()=>{
     paginaJuego.style.display = 'flex';
     letraPresionada();
     mostrarLetras(palabraRandom);
+    mostrarCon(palabraRandom);
 });
 
 btnPalabra.addEventListener('click',()=>{

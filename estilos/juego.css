@@ -207,10 +207,21 @@
 
     .letras{
         margin-top:0px;
-        font-size: 2em;
+        font-size: 0.5em;
         font-weight: bold;
         color:#0A3871;
         margin-bottom: 10px;
+    }
+
+    .p-letras{  
+        font-size: 2.5em;
+        font-weight: bold;
+        color:#0A3871;
+        border:none;
+        width: 100%;
+        height: 100%;
+        background-color: #E5E5E5;
+        text-align: center;
     }
     
 }
