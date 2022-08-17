@@ -44,8 +44,10 @@ let letrasError = document.getElementById('letras-error'); // div de las letras 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let body = document.querySelector('body');
 
+let conG = 0;
+let conE = 0;
 
-
+let palabraRandom;
 // Funciones -----------------
 
 function crearArr(arg){
@@ -66,8 +68,9 @@ function sortearPalabras(){
 }
 
 
-function crearDivVacio(palabra){
-        for (let i = 0; i < palabra.length; i++){
+function crearDivVacio(){
+    palabraRandom = sortearPalabras().join().toUpperCase();
+        for (let i = 0; i < palabraRandom.length; i++){
             let div = document.createElement('div');
             let input = document.createElement('input');
             input.classList.add('p-letras');
@@ -76,6 +79,8 @@ function crearDivVacio(palabra){
             divPalabra.appendChild(div);
             div.appendChild(input);
         }
+        conG = 0;
+        conE = 0;
 }
 
 
@@ -89,18 +94,43 @@ function removerDiv(palabra){    //lista
     
 }
 
+function removerError(){    //lista
+    let listP = document.getElementsByClassName('error');
+    let total = listP.length; 
+    for (let i = 0; i < listP.length ;) {
 
-function mensajePerdio(arg){
+        letrasError.removeChild(listP[0]);
+
+    }
+    
+}
+
+function mensajeGano(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let parrafo = document.createElement('p');
-    if(arg === 10){
+
         mensajeFinal.appendChild(parrafo);
-        parrafo.innerText = "Usted ha perdido";
+        parrafo.innerText = "GANADO";
+        mensajeFinal.style.display = "flex";
+        parrafo.classList.add("mensaje-final-gano");
+   
+}
+
+function juegoNuevo(){
+    limpiarCanvas();
+    removerDiv(palabraRandom);
+    removerError();
+    crearDivVacio();
+}
+
+
+function mensajePerdio(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let parrafo = document.createElement('p');
+        mensajeFinal.appendChild(parrafo);
+        parrafo.innerText = "PERDIO";
         mensajeFinal.style.display = "flex";
         parrafo.classList.add("mensaje-final-perdio");
-    }else{
-        mensajeFinal.style.display = "none";
-    }
 }
 
 function error(arg,palabra){
@@ -114,6 +144,19 @@ function error(arg,palabra){
         }
 }
 
+function gano(arr,palabra){
+    let array =[];
+    for (let i=0; i<palabra.length; i++) {
+        let value = arr[i].value;
+        array.push(value);
+    }
+    let comparacion = array.join('');
+    
+    if(comparacion == palabra) {
+        mensajeGano();
+    }
+}
+
 
 
 function ingresarLetra(letra,index){
@@ -125,7 +168,6 @@ function ingresarLetra(letra,index){
 
 function letrasIguales(letra,palabra){
     if(palabra.includes(letra)===true){
-
         let index = palabra.indexOf(letra);
         let index2 = palabra.indexOf(letra,index+1);
         if(palabra[index]===palabra[index2]){
@@ -154,36 +196,39 @@ function mostrarCon(arg){
 }
 
 
+
 function mostrarLetras(pala){
-    crearDivVacio(pala);
     document.addEventListener('keydown',(e)=>{
         let letraPresionada = e.key.toUpperCase();    
         let palabra = pala.toUpperCase();
         let code = e.keyCode;
         let index = palabra.indexOf(letraPresionada);
         let listInput = document.getElementsByClassName('p-letras');
+        
 
         if(code >= 65 && code <= 90 || code === 192){
 
             if(palabra.includes(letraPresionada)===true){
                 
                 ingresarLetra(letraPresionada,index);   
-                console.log(listInput[index]); 
+                console.log(conG); 
+                conG = conG + 1;
             }
              else{
                 error(letraPresionada,palabra);
+                conE = conE + 1;
             }
             if(palabra.includes(letraPresionada) === true){
                 letrasIguales(letraPresionada,palabra);
             }   
         }
+        if(conE === 10){
+            mensajePerdio();
+        }
+        gano(listInput,palabra);
+        vidas(conE);
     });
 }
-
-
-
-
-let palabraRandom = sortearPalabras().join().toUpperCase();
 
 
 // Eventos Botones ----------------
@@ -191,7 +236,7 @@ let palabraRandom = sortearPalabras().join().toUpperCase();
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    letraPresionada();
+    crearDivVacio();
     mostrarLetras(palabraRandom);
     mostrarCon(palabraRandom);
 });
@@ -218,12 +263,8 @@ btnGuardar.addEventListener('click',()=>{
 });
 
 btnNuevo.addEventListener('click',()=>{
-    mostrarCon();
+    juegoNuevo();
 });
-
-function mostrarCon(){
-    let listDiv = document.getElementsByClassName('letras');
-}
 
 
   // Muestra la tecla precionada
@@ -241,6 +282,11 @@ function mostrarCon(){
 let pantalla = document.querySelector('#canvas');
 let pincel = pantalla.getContext('2d');
 
+function limpiarCanvas(){
+    pincel.clearRect(0,0,680,428);
+    conE=0;
+}
+
 
 function crearRectangulo(poX,poY,largo,alto,color){
     pincel.fillStyle = color
@@ -254,7 +300,7 @@ function crearCirculo(poX,poY,largo,alto,color){
     pincel.fill();
     pincel.fillStyle = '#ebebeb';
     pincel.beginPath();
-    pincel.arc(poX,poY,largo-3,alto-3,2*3.14);
+    pincel.arc(poX,poY,largo-2,alto-3,2*3.14);
     pincel.fill();
 }
 
@@ -268,6 +314,10 @@ function dibujarLinea(poX,poY,poX2,poY2,color){
 }
 
 function vidas(arg){
+
+    if(arg==0){
+
+    }
     if(arg==1){
         crearRectangulo(80,130,150,3,'#0A3871');
     }
@@ -281,7 +331,7 @@ function vidas(arg){
         crearRectangulo(185,15,3,20,'#0A3871');
     }
     if(arg == 5){
-        crearRectangulo(185,15,3,20,'#0A3871');
+        crearCirculo(186,45,10,0,'#0A3871');
     }
     if(arg == 6){
         crearRectangulo(185,54,3,40,'#0A3871'); 
@@ -300,16 +350,16 @@ function vidas(arg){
     }
 }
 
-//cabeza
- //soga
- ///cuerpo
-//brazo izquierda
-//pierna izquierdo
-//brezo derecha
-//pierna derecha
- // trabesaño
-//mastil
- //suelo
+// dibujarLinea(170,70,130,90,'#0A3871');//brazo izquierda
+// dibujarLinea(170,105,130,120,'#0A3871');//pierna izquierdo
+// dibujarLinea(172,70,210,90,'#0A3871');//brezo derecha
+// dibujarLinea(172,105,210,120,'#0A3871');//pierna derecha
+// crearCirculo(172,50,15,0,'#0A3871'); //cabeza
+// crearRectangulo(50,15,10,120,'#0A3871'); //mastil
+// crearRectangulo(10,130,250,5,'#0A3871'); //suelo
+// crearRectangulo(50,15,150,5,'#0A3871'); // trabesaño
+// crearRectangulo(170,15,5,20,'#0A3871'); //soga
+// crearRectangulo(169,65,5,40,'#0A3871');  ///cuerpo
 
 
 
