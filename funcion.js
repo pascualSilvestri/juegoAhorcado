@@ -64,15 +64,12 @@ function crearArr(arg){
     return arr;
 }
 
-
-
 function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
     let palabra = palabras.slice(aleatorio,aleatorio+1);
     mostrarCon(palabra);
     return palabra;
 }
-
 
 function crearDivVacio(){
     palabraRandom = sortearPalabras().join().toUpperCase();
@@ -88,7 +85,6 @@ function crearDivVacio(){
         conG = 0;
         conE = 0;
 }
-
 
 function removerDiv(palabra){    //lista
     let listDiv = document.getElementsByClassName('letras');
@@ -110,8 +106,6 @@ function removerError(){    //lista
     }
     
 }
-
-
 
 function juegoNuevo(){
     limpiarCanvas();
@@ -183,19 +177,23 @@ function mensajePerdio(){
             parrafo.innerText = "PERDIO";
             mensajeFinal.style.display = "flex";
             parrafo.classList.add("mensaje-final-perdio");
+            banP=false;
         }
         
 }
 
 function error(letra,palabra){
     let p = document.createElement('p');
-    if(contError <= 10){
+    let comparacion = arrError.join('');
+    if(comparacion.includes(letra)===false){
         if(palabra.indexOf(letra) < 0){
             p.innerText = letra;
             p.classList.add('error');
             letrasError.appendChild(p);
             vidas(contError);
             arrError.push(letra);
+            conE = conE + 1;
+            console.log(comparacion);
         }
     }
         
@@ -214,8 +212,6 @@ function gano(arr,palabra){
     }
 }
 
-
-
 function ingresarLetra(letra,index){
         let listDiv = document.getElementsByClassName('letras');
         let input = document.getElementsByClassName('p-letras');
@@ -232,7 +228,6 @@ function letrasIguales(letra,palabra){
         }
     }
 }
-
 
 function letraPresionada(){   // Obtiene la letra presionada por teclado
     document.addEventListener('keydown', (e)=>{
@@ -251,8 +246,6 @@ function letraPresionada(){   // Obtiene la letra presionada por teclado
 function mostrarCon(arg){
     console.log(arg);
 }
-
-
 
 function mostrarLetras(pala){
     document.addEventListener('keydown',(e)=>{
@@ -273,7 +266,6 @@ function mostrarLetras(pala){
             }
              else{
                 error(letraPresionada,palabra);
-                conE = conE + 1;
             }
             if(palabra.includes(letraPresionada) === true){
                 letrasIguales(letraPresionada,palabra);
@@ -286,8 +278,6 @@ function mostrarLetras(pala){
         vidas(conE);
     });
 }
-
-
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
