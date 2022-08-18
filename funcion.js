@@ -88,7 +88,7 @@ function crearDivVacio(){
 
 function removerDiv(palabra){    //lista
     let listDiv = document.getElementsByClassName('letras');
-    for (let i = 0; i < palabra.length; i++) {
+    for (let i = 0;listDiv.length != 0; i++) {
 
         divPalabra.removeChild(listDiv[0]);
 
@@ -115,18 +115,19 @@ function juegoNuevo(){
     eliminarMensajes();
 }
 
+
+
 function eliminarMensajes(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let prueba = mensajeFinal.childNodes;
-    console.log(prueba[1].innerText);
-
-    if(prueba[1].innerText === 'GANADO'){
-        console.log(prueba);
-        eliminarMensajeGano();
-    }else if(prueba[1].innerText === 'PERDIO'){
-        console.log(prueba);
-        eliminarMensajePerdio();
+    if(mensajeFinal.childNodes.length !== 0){
+        if(prueba[0].innerText === 'GANADO'){
+            eliminarMensajeGano();
+        }else if(prueba[0].innerText === 'PERDIO'){
+            eliminarMensajePerdio();
+        }
     }
+    
     banG=true;
     banP=true;
 }
@@ -311,7 +312,13 @@ btnGuardar.addEventListener('click',()=>{
 
 btnNuevo.addEventListener('click',()=>{
     juegoNuevo();
+    prueba();
 });
+
+function prueba(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    console.log(mensajeFinal.childNodes.length);
+}
 
 
   // Muestra la tecla precionada
