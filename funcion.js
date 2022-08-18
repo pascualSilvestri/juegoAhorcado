@@ -47,7 +47,13 @@ let body = document.querySelector('body');
 let conG = 0;
 let conE = 0;
 
+let banG = true;
+let banP = true;
+
+let contError = 0;
 let palabraRandom;
+
+let arrError = [];
 // Funciones -----------------
 
 function crearArr(arg){
@@ -105,43 +111,94 @@ function removerError(){    //lista
     
 }
 
-function mensajeGano(){
-    let mensajeFinal = document.querySelector('.mensaje-final');
-    let parrafo = document.createElement('p');
 
-        mensajeFinal.appendChild(parrafo);
-        parrafo.innerText = "GANADO";
-        mensajeFinal.style.display = "flex";
-        parrafo.classList.add("mensaje-final-gano");
-   
-}
 
 function juegoNuevo(){
     limpiarCanvas();
     removerDiv(palabraRandom);
     removerError();
     crearDivVacio();
+    eliminarMensajes();
 }
 
+function eliminarMensajes(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let prueba = mensajeFinal.childNodes;
+    console.log(prueba[1].innerText);
+
+    if(prueba[1].innerText === 'GANADO'){
+        console.log(prueba);
+        eliminarMensajeGano();
+    }else if(prueba[1].innerText === 'PERDIO'){
+        console.log(prueba);
+        eliminarMensajePerdio();
+    }
+    banG=true;
+    banP=true;
+}
+
+function eliminarMensajePerdio(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let perdio = document.querySelector('.mensaje-final-perdio');
+
+    if(mensajeFinal.innerHTML.length > 0) {
+    mensajeFinal.style.display = 'none';
+    mensajeFinal.removeChild(perdio);
+    }
+    console.log(mensajeFinal.innerHTML);
+}
+
+function eliminarMensajeGano(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let gano = document.querySelector('.mensaje-final-gano');
+    console.log(mensajeFinal.innerHTML);
+
+    if(mensajeFinal.innerHTML.length > 0) {
+    mensajeFinal.style.display = 'none';
+    mensajeFinal.removeChild(gano);
+    }
+    console.log(mensajeFinal.innerHTML);
+    
+}
+
+function mensajeGano(){
+    let mensajeFinal = document.querySelector('.mensaje-final');
+    let parrafo = document.createElement('p');
+    
+        if(banG){
+            mensajeFinal.appendChild(parrafo);
+            parrafo.innerText = "GANADO";
+            mensajeFinal.style.display = "flex";
+            parrafo.classList.add("mensaje-final-gano");
+            banG =false;
+        }
+   
+}
 
 function mensajePerdio(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let parrafo = document.createElement('p');
-        mensajeFinal.appendChild(parrafo);
-        parrafo.innerText = "PERDIO";
-        mensajeFinal.style.display = "flex";
-        parrafo.classList.add("mensaje-final-perdio");
+        if(banP){
+            mensajeFinal.appendChild(parrafo);
+            parrafo.innerText = "PERDIO";
+            mensajeFinal.style.display = "flex";
+            parrafo.classList.add("mensaje-final-perdio");
+        }
+        
 }
 
-function error(arg,palabra){
+function error(letra,palabra){
     let p = document.createElement('p');
-    let contador = 0;
-        if(palabra.indexOf(arg) < 0){
-            p.innerText = arg;
+    if(contError <= 10){
+        if(palabra.indexOf(letra) < 0){
+            p.innerText = letra;
             p.classList.add('error');
             letrasError.appendChild(p);
-            vidas(contador);
+            vidas(contError);
+            arrError.push(letra);
         }
+    }
+        
 }
 
 function gano(arr,palabra){
