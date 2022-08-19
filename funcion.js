@@ -52,6 +52,9 @@ let banP = true;
 let contError = 0;
 let palabraRandom ;
 
+let ganaste = false;
+let perdio = false;
+
 let arrError = [];
 // Funciones -----------------
 
@@ -69,7 +72,6 @@ function sortearPalabras(){
     mostrarCon(palabra);
     palabraRandom = palabra;
 }
-
 
 function crearDivVacio(palabra){
         for (let i = 0; i < palabra.length; i++){
@@ -185,18 +187,20 @@ function mensajePerdio(){
 function error(letra,palabra){
     let p = document.createElement('p');
     let comparacion = arrError.join('');
-    if(comparacion.includes(letra)===false){
-        if(palabra.indexOf(letra) < 0){
-            p.innerText = letra;
-            p.classList.add('error');
-            letrasError.appendChild(p);
-            vidas(contError);
-            arrError.push(letra);
-            conE = conE + 1;
-            console.log(comparacion);
+    if(conE < 10 && ganaste === false){
+        if(comparacion.includes(letra)===false){
+            if(palabra.indexOf(letra) < 0){
+                p.innerText = letra;
+                p.classList.add('error');
+                letrasError.appendChild(p);
+                vidas(contError);
+                arrError.push(letra);
+                conE = conE + 1;
+                console.log(comparacion);
+            }
         }
     }
-        
+          
 }
 
 function gano(arr,palabra){
@@ -209,6 +213,7 @@ function gano(arr,palabra){
     
     if(comparacion == palabra) {
         mensajeGano();
+        ganaste = true; 
     }
 }
 
@@ -219,13 +224,10 @@ function ingresarLetra(letra,index){
         listDiv[index].appendChild(input[index]);
 }
 
-let index = [];
-let index2 = [];
-
 function letrasIguales(letra,palabra){
     if(palabra.includes(letra)===true){
-        index = palabra.indexOf(letra);
-        index2 = palabra.indexOf(letra,index+1);
+        let index = palabra.indexOf(letra);
+        let index2 = palabra.indexOf(letra,index+1);
         if(palabra[index]===palabra[index2]){
             ingresarLetra(letra,index2);
         }
@@ -262,10 +264,12 @@ function mostrarLetras(pala){
         if(code >= 65 && code <= 90 || code === 192){
 
             if(palabra.includes(letraPresionada)===true){
+                if(conE <10){
+                    ingresarLetra(letraPresionada,index);   
+                    console.log(conG); 
+                    conG = conG + 1;
+                }
                 
-                ingresarLetra(letraPresionada,index);   
-                console.log(conG); 
-                conG = conG + 1;
             }
              else{
                 error(letraPresionada,palabra);
@@ -289,7 +293,6 @@ btnIniciar.addEventListener('click',()=>{
     sortearPalabras();
     crearDivVacio(palabraRandom);
     mostrarLetras(palabraRandom);
-    mostrarCon(palabraRandom);
 });
 
 btnPalabra.addEventListener('click',()=>{
