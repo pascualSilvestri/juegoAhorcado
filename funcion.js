@@ -22,7 +22,6 @@ let palabras = [
     'carro',
     'perro',
     'password'
-
 ];
 
 let paginaInicial = document.getElementById('pagina-inicial'); //pagina inicial
@@ -51,7 +50,7 @@ let banG = true;
 let banP = true;
 
 let contError = 0;
-let palabraRandom;
+let palabraRandom ;
 
 let arrError = [];
 // Funciones -----------------
@@ -66,14 +65,14 @@ function crearArr(arg){
 
 function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
-    let palabra = palabras.slice(aleatorio,aleatorio+1);
+    let palabra = palabras.slice(aleatorio,aleatorio+1).join('').toUpperCase();
     mostrarCon(palabra);
-    return palabra;
+    palabraRandom = palabra;
 }
 
-function crearDivVacio(){
-    palabraRandom = sortearPalabras().join().toUpperCase();
-        for (let i = 0; i < palabraRandom.length; i++){
+
+function crearDivVacio(palabra){
+        for (let i = 0; i < palabra.length; i++){
             let div = document.createElement('div');
             let input = document.createElement('input');
             input.classList.add('p-letras');
@@ -85,6 +84,7 @@ function crearDivVacio(){
         conG = 0;
         conE = 0;
 }
+
 
 function removerDiv(palabra){    //lista
     let listDiv = document.getElementsByClassName('letras');
@@ -111,11 +111,10 @@ function juegoNuevo(){
     limpiarCanvas();
     removerDiv(palabraRandom);
     removerError();
-    crearDivVacio();
+    sortearPalabras();
+    crearDivVacio(palabraRandom);
     eliminarMensajes();
 }
-
-
 
 function eliminarMensajes(){
     let mensajeFinal = document.querySelector('.mensaje-final');
@@ -162,7 +161,7 @@ function mensajeGano(){
     
         if(banG){
             mensajeFinal.appendChild(parrafo);
-            parrafo.innerText = "GANADO";
+            parrafo.innerText = "GANASTE!";
             mensajeFinal.style.display = "flex";
             parrafo.classList.add("mensaje-final-gano");
             banG =false;
@@ -175,7 +174,7 @@ function mensajePerdio(){
     let parrafo = document.createElement('p');
         if(banP){
             mensajeFinal.appendChild(parrafo);
-            parrafo.innerText = "PERDIO";
+            parrafo.innerText = "PERDISTE";
             mensajeFinal.style.display = "flex";
             parrafo.classList.add("mensaje-final-perdio");
             banP=false;
@@ -220,10 +219,13 @@ function ingresarLetra(letra,index){
         listDiv[index].appendChild(input[index]);
 }
 
+let index = [];
+let index2 = [];
+
 function letrasIguales(letra,palabra){
     if(palabra.includes(letra)===true){
-        let index = palabra.indexOf(letra);
-        let index2 = palabra.indexOf(letra,index+1);
+        index = palabra.indexOf(letra);
+        index2 = palabra.indexOf(letra,index+1);
         if(palabra[index]===palabra[index2]){
             ingresarLetra(letra,index2);
         }
@@ -284,7 +286,8 @@ function mostrarLetras(pala){
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    crearDivVacio();
+    sortearPalabras();
+    crearDivVacio(palabraRandom);
     mostrarLetras(palabraRandom);
     mostrarCon(palabraRandom);
 });
