@@ -50,13 +50,36 @@ let banG = true;
 let banP = true;
 
 let contError = 0;
-let palabraRandom ;
+
 
 let ganaste = false;
 let perdio = false;
 
 let arrError = [];
+
+let palabraRandom ;
 // Funciones -----------------
+
+function juegoNuevo(){
+    reiniciar();
+    limpiarCanvas();
+    removerDiv(palabraRandom);
+    removerError();
+    eliminarMensajes();
+    mostrarLetras();
+    crearDivVacio(palabraRandom);
+}
+
+function reiniciar(){
+    conG = 0;
+    conE = 0;
+    banG = true;
+    banP = true;
+    contError = 0;
+    ganaste = false;
+    perdio = false;
+    arrError = [];
+}
 
 function crearArr(arg){
     let arr = [];
@@ -70,7 +93,7 @@ function sortearPalabras(){
     let aleatorio = Math.floor(Math.random()*palabras.length);
     let palabra = palabras.slice(aleatorio,aleatorio+1).join('').toUpperCase();
     mostrarCon(palabra);
-    palabraRandom = palabra;
+    return palabra;
 }
 
 function crearDivVacio(palabra){
@@ -87,13 +110,10 @@ function crearDivVacio(palabra){
         conE = 0;
 }
 
-
-function removerDiv(palabra){    //lista
+function removerDiv(){    //lista
     let listDiv = document.getElementsByClassName('letras');
-    for (let i = 0;listDiv.length != 0; i++) {
-
+    for (let i = listDiv.length; i > 0; i--) {
         divPalabra.removeChild(listDiv[0]);
-
     }
     
 }
@@ -109,22 +129,15 @@ function removerError(){    //lista
     
 }
 
-function juegoNuevo(){
-    limpiarCanvas();
-    removerDiv(palabraRandom);
-    removerError();
-    sortearPalabras();
-    crearDivVacio(palabraRandom);
-    eliminarMensajes();
-}
-
 function eliminarMensajes(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let prueba = mensajeFinal.childNodes;
+
     if(mensajeFinal.childNodes.length !== 0){
-        if(prueba[0].innerText === 'GANADO'){
+
+        if(prueba[0].innerText === 'GANASTE'){
             eliminarMensajeGano();
-        }else if(prueba[0].innerText === 'PERDIO'){
+        }else if(prueba[0].innerText === 'PERDISTE'){
             eliminarMensajePerdio();
         }
     }
@@ -163,7 +176,7 @@ function mensajeGano(){
     
         if(banG){
             mensajeFinal.appendChild(parrafo);
-            parrafo.innerText = "GANASTE!";
+            parrafo.innerText = "GANASTE";
             mensajeFinal.style.display = "flex";
             parrafo.classList.add("mensaje-final-gano");
             banG =false;
@@ -252,15 +265,15 @@ function mostrarCon(arg){
     console.log(arg);
 }
 
-function mostrarLetras(pala){
+function mostrarLetras(){
+    palabraRandom = sortearPalabras();
     document.addEventListener('keydown',(e)=>{
         let letraPresionada = e.key.toUpperCase();    
-        let palabra = pala.toUpperCase();
+        let palabra = palabraRandom.toUpperCase();
         let code = e.keyCode;
         let index = palabra.indexOf(letraPresionada);
         let listInput = document.getElementsByClassName('p-letras');
-        
-
+    
         if(code >= 65 && code <= 90 || code === 192){
 
             if(palabra.includes(letraPresionada)===true){
@@ -290,9 +303,8 @@ function mostrarLetras(pala){
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    sortearPalabras();
-    crearDivVacio(palabraRandom);
-    mostrarLetras(palabraRandom);
+    juegoNuevo();
+    
 });
 
 btnPalabra.addEventListener('click',()=>{
@@ -318,12 +330,12 @@ btnGuardar.addEventListener('click',()=>{
 
 btnNuevo.addEventListener('click',()=>{
     juegoNuevo();
-    prueba();
+    
 });
 
 function prueba(){
-    let mensajeFinal = document.querySelector('.mensaje-final');
-    console.log(mensajeFinal.childNodes.length);
+
+  
 }
 
 
