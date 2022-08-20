@@ -56,18 +56,16 @@ let ganaste = false;
 let perdio = false;
 
 let arrError = [];
+let arrayGano =[];
 
 let palabraRandom ;
+let palabraInput;
 // Funciones -----------------
 
 function juegoNuevo(){
-    reiniciar();
-    limpiarCanvas();
-    removerDiv(palabraRandom);
-    removerError();
-    eliminarMensajes();
-    mostrarLetras();
     crearDivVacio(palabraRandom);
+    mostrarLetras();
+    
 }
 
 function reiniciar(){
@@ -79,6 +77,12 @@ function reiniciar(){
     ganaste = false;
     perdio = false;
     arrError = [];
+    limpiarCanvas();
+    removerDiv(palabraRandom);
+    removerError();
+    eliminarMensajes();
+    palabraRandom = '';
+    palabraInput = '';
 }
 
 function crearArr(arg){
@@ -217,12 +221,12 @@ function error(letra,palabra){
 }
 
 function gano(arr,palabra){
-    let array =[];
+    let arrayGano = [];
     for (let i=0; i<palabra.length; i++) {
         let value = arr[i].value;
-        array.push(value);
+        arrayGano.push(value);
     }
-    let comparacion = array.join('');
+    let comparacion = arrayGano.join('');
     
     if(comparacion == palabra) {
         mensajeGano();
@@ -265,8 +269,12 @@ function mostrarCon(arg){
     console.log(arg);
 }
 
-function mostrarLetras(){
+function asignarPalabra(){
     palabraRandom = sortearPalabras();
+}
+
+function mostrarLetras(){
+    
     document.addEventListener('keydown',(e)=>{
         let letraPresionada = e.key.toUpperCase();    
         let palabra = palabraRandom.toUpperCase();
@@ -298,45 +306,95 @@ function mostrarLetras(){
         vidas(conE);
     });
 }
+
+function jugarConLetraIngresada(){
+    palabraInput = palabraNueva();
+    document.addEventListener('keydown',(e)=>{
+        let letraPresionada = e.key.toUpperCase();    
+        let palabra = palabraInput.toUpperCase();
+        let code = e.keyCode;
+        let index = palabra.indexOf(letraPresionada);
+        let listInput = document.getElementsByClassName('p-letras');
+    
+        if(code >= 65 && code <= 90 || code === 192){
+
+            if(palabra.includes(letraPresionada)===true){
+                if(conE <10){
+                    ingresarLetra(letraPresionada,index);   
+                    console.log(conG); 
+                    conG = conG + 1;
+                }
+                
+            }
+             else{
+                error(letraPresionada,palabra);
+            }
+            if(palabra.includes(letraPresionada) === true){
+                letrasIguales(letraPresionada,palabra);
+            }   
+        }
+        if(conE === 10){
+            mensajePerdio();
+        }
+        gano(listInput,palabra);
+        vidas(conE);
+    });
+    return;
+}
+
+function palabraNueva(){
+    palabraRandom = agregarPalabra.value;
+    palabras.push(palabraInput);
+}
+
+function blanquearInput(){
+agregarPalabra.value = '';
+
+}
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
-    juegoNuevo();
-    
+    reiniciar();
+    asignarPalabra();
+    juegoNuevo();    
 });
 
 btnPalabra.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaPalabra.style.display = 'flex';
+    blanquearInput();
+    reiniciar();
+    
 });
 
 btnDesistir.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaJuego.style.display = 'none';
-    removerDiv(palabraRandom);
+    reiniciar();
 });
 
 btnCancelar.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaPalabra.style.display = 'none';
+    reiniciar();
 });
 
 btnGuardar.addEventListener('click',()=>{
     paginaJuego.style.display = 'flex';
     paginaPalabra.style.display = 'none';
+    reiniciar();
+    palabraNueva();
+    juegoNuevo();
 });
 
 btnNuevo.addEventListener('click',()=>{
-    juegoNuevo();
-    
+    reiniciar();
+    asignarPalabra();
+    juegoNuevo(); 
 });
 
-function prueba(){
-
-  
-}
 
 
   // Muestra la tecla precionada
