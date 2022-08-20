@@ -104,7 +104,7 @@ function crearDivVacio(palabra){
             let div = document.createElement('div');
             let input = document.createElement('input');
             input.classList.add('p-letras');
-            input.readOnly = true;
+            input.readOnly = false;
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
             div.appendChild(input);
