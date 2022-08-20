@@ -104,11 +104,10 @@ function crearDivVacio(palabra){
             let div = document.createElement('div');
             let input = document.createElement('input');
             input.classList.add('p-letras');
-            input.readOnly = false;
+            input.readOnly = true;
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
             div.appendChild(input);
-            input.focus();
         }
         conG = 0;
         conE = 0;
