@@ -28,6 +28,7 @@
     align-items: center;
 }
 
+
 #ingresar-palabra{
     border:none;
     width: 400px;
@@ -36,7 +37,6 @@
     color:#0A3871;
     font-weight: bold;
     font-size: 1.7em; 
-
 }
 
 #ingresar-palabra::placeholder{

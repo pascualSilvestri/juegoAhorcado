@@ -54,6 +54,8 @@ let contError = 0;
 let ganaste = false;
 let perdio = false;
 
+let tieneLetras = false;
+
 let arrError = [];
 
 let palabraRandom ;
@@ -305,7 +307,14 @@ function mostrarLetras(){
 
 function palabraNueva(){
     palabraRandom = agregarPalabra.value;
-    palabras.push(palabraInput);
+
+    if(palabraRandom.length>0){
+        palabras.push(palabraInput);
+        tieneLetras=true;
+    }else{
+        alert('Por favor ingrese una palabra');
+    }
+    
 }
 
 function blanquearInput(){
@@ -325,6 +334,7 @@ btnIniciar.addEventListener('click',()=>{
 btnPalabra.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaPalabra.style.display = 'flex';
+    agregarPalabra.focus();
     blanquearInput();
     reiniciar();
     
@@ -343,11 +353,14 @@ btnCancelar.addEventListener('click',()=>{
 });
 
 btnGuardar.addEventListener('click',()=>{
-    paginaJuego.style.display = 'flex';
-    paginaPalabra.style.display = 'none';
+    if(tieneLetras){
+        paginaJuego.style.display = 'flex';
+        paginaPalabra.style.display = 'none';
+    }
     reiniciar();
     palabraNueva();
     juegoNuevo();
+    
 });
 
 btnNuevo.addEventListener('click',()=>{
