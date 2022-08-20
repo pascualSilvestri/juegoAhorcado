@@ -223,5 +223,33 @@
         background-color: #E5E5E5;
         text-align: center;
     }
+
+    .mensaje-final{
+        position:absolute;
+        width: 100vw;
+        height: 60vh;
+        background-color:#3334;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mensaje-final-gano{
+        font-size: 2em;
+        color:#0f0;
+        font-weight: bold;
+        background-color:#0A3871;
+        padding:10px;
+        border-radius: 20px;
+    }
+    
+    .mensaje-final-perdio{
+        font-size: 2em;
+        color:#f00;
+        font-weight: bold;
+        background-color:#0A3871;
+        padding:10px;
+        border-radius: 20px;
+    }
     
 }
