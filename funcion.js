@@ -327,7 +327,6 @@ btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
     reiniciar();
-    inputImaginario.focus();
     asignarPalabra();
     juegoNuevo();    
 });
