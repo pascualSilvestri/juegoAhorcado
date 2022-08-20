@@ -41,7 +41,7 @@ let divPalabra = document.getElementById('palabra');  // el div para las letras 
 let letrasError = document.getElementById('letras-error'); // div de las letras de error
 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
-let body = document.querySelector('body');
+let inputImaginario = document.querySelector('#imaginario');
 
 let conE = 0;
 
@@ -108,7 +108,6 @@ function crearDivVacio(palabra){
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
             div.appendChild(input);
-            input.focus();
         }
         conG = 0;
         conE = 0;
@@ -328,6 +327,7 @@ btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
     reiniciar();
+    inputImaginario.focus();
     asignarPalabra();
     juegoNuevo();    
 });
