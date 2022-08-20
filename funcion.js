@@ -50,6 +50,7 @@ let banP = true;
 
 let contError = 0;
 
+
 let ganaste = false;
 let perdio = false;
 
@@ -307,6 +308,10 @@ function palabraNueva(){
     palabras.push(palabraInput);
 }
 
+function blanquearInput(){
+agregarPalabra.value = '';
+
+}
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
