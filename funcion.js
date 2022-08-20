@@ -108,6 +108,7 @@ function crearDivVacio(palabra){
             div.classList.add('letras'); 
             divPalabra.appendChild(div);
             div.appendChild(input);
+            input.focus();
         }
         conG = 0;
         conE = 0;
