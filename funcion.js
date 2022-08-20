@@ -372,17 +372,6 @@ btnNuevo.addEventListener('click',()=>{
 
 
 
-  // Muestra la tecla precionada
-
-
-
-// btnNuevo.addEventListener("click", );
-
-
-
-
-
-
 // canvas1 
 let pantalla = document.querySelector('#canvas');
 let pincel = pantalla.getContext('2d');
@@ -391,7 +380,6 @@ function limpiarCanvas(){
     pincel.clearRect(0,0,680,428);
     conE=0;
 }
-
 
 function crearRectangulo(poX,poY,largo,alto,color){
     pincel.fillStyle = color
