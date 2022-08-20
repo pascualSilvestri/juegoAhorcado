@@ -43,7 +43,6 @@ let letrasError = document.getElementById('letras-error'); // div de las letras 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let body = document.querySelector('body');
 
-let conG = 0;
 let conE = 0;
 
 let banG = true;
@@ -51,15 +50,12 @@ let banP = true;
 
 let contError = 0;
 
-
 let ganaste = false;
 let perdio = false;
 
 let arrError = [];
-let arrayGano =[];
 
 let palabraRandom ;
-let palabraInput;
 // Funciones -----------------
 
 function juegoNuevo(){
@@ -124,7 +120,6 @@ function removerDiv(){    //lista
 
 function removerError(){    //lista
     let listP = document.getElementsByClassName('error');
-    let total = listP.length; 
     for (let i = 0; i < listP.length ;) {
 
         letrasError.removeChild(listP[0]);
@@ -307,50 +302,11 @@ function mostrarLetras(){
     });
 }
 
-function jugarConLetraIngresada(){
-    palabraInput = palabraNueva();
-    document.addEventListener('keydown',(e)=>{
-        let letraPresionada = e.key.toUpperCase();    
-        let palabra = palabraInput.toUpperCase();
-        let code = e.keyCode;
-        let index = palabra.indexOf(letraPresionada);
-        let listInput = document.getElementsByClassName('p-letras');
-    
-        if(code >= 65 && code <= 90 || code === 192){
-
-            if(palabra.includes(letraPresionada)===true){
-                if(conE <10){
-                    ingresarLetra(letraPresionada,index);   
-                    console.log(conG); 
-                    conG = conG + 1;
-                }
-                
-            }
-             else{
-                error(letraPresionada,palabra);
-            }
-            if(palabra.includes(letraPresionada) === true){
-                letrasIguales(letraPresionada,palabra);
-            }   
-        }
-        if(conE === 10){
-            mensajePerdio();
-        }
-        gano(listInput,palabra);
-        vidas(conE);
-    });
-    return;
-}
-
 function palabraNueva(){
     palabraRandom = agregarPalabra.value;
     palabras.push(palabraInput);
 }
 
-function blanquearInput(){
-agregarPalabra.value = '';
-
-}
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
