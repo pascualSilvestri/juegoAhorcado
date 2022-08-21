@@ -453,7 +453,13 @@ function vidas(arg){
 // crearRectangulo(170,15,5,20,'#0A3871'); //soga
 // crearRectangulo(169,65,5,40,'#0A3871');  ///cuerpo
 
+// Funciones Teclado Mobile
 
+function teclaMobile(clas){
+    let valor = document.querySelector(clas);
+    console.log(valor.value);
+    return valor;
+}
 
 
 
