@@ -419,20 +419,17 @@ btnPalabra.addEventListener('click',()=>{
     paginaPalabra.style.display = 'flex';
     agregarPalabra.focus();
     blanquearInput();
-    reiniciar();
     
 });
 
 btnDesistir.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaJuego.style.display = 'none';
-    reiniciar();
 });
 
 btnCancelar.addEventListener('click',()=>{
     paginaInicial.style.display = 'flex';
     paginaPalabra.style.display = 'none';
-    reiniciar();
 });
 
 btnGuardar.addEventListener('click',()=>{
