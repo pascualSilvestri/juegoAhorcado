@@ -538,15 +538,7 @@ function vidas(arg){
 
 // Funciones Teclado Mobile
 
-<<<<<<< HEAD
 
-=======
-function teclaMobile(clas){
-    let valor = document.querySelector(clas);
-    console.log(valor.value);
-    return valor;
-}
->>>>>>> e4360e82bdc65e31e4917397cc930663adcf6afc
 
 
 
