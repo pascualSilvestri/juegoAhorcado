@@ -222,11 +222,15 @@ function mensajeGano(){
 function mensajePerdio(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let parrafo = document.createElement('p');
+    let p2 = document.createElement('p');
         if(banP){
             mensajeFinal.appendChild(parrafo);
             parrafo.innerText = "PERDISTE";
+            p2.innerText = 'La palabra es: '+palabraRandom;
+            mensajeFinal.appendChild(p2);
             mensajeFinal.style.display = "flex";
             parrafo.classList.add("mensaje-final-perdio");
+            p2.classList.add("mensaje-final-perdio-pala");
             banP=false;
         }
         

@@ -49,6 +49,7 @@
     height: 80vh;
     background-color:#3334;
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -69,6 +70,15 @@
     background-color:#0A3871;
     padding:10px;
     border-radius: 20px;
+}
+.mensaje-final-perdio-pala{
+    font-size: 1em;
+    color:#f00;
+    font-weight: bold;
+    background-color:#0A3871;
+    padding:10px;
+    border-radius: 20px;
+    text-align: center;
 }
 
 #imaginario{
