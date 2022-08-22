@@ -42,8 +42,32 @@ let letrasError = document.getElementById('letras-error'); // div de las letras 
 
 let agregarPalabra = document.getElementById('ingresar-palabra'); //input ingresar palabra para guardar 
 let inputImaginario = document.querySelector('#imaginario');
-
+let keyMobil = document.querySelectorAll(".keys");
 let conE = 0;
+
+let A = document.getElementById('A');
+let B = document.getElementById('B');
+let C = document.getElementById('C');
+let D = document.getElementById('D');
+let F = document.getElementById('F');
+let G = document.getElementById('G');
+let H = document.getElementById('H');
+let I = document.getElementById('I');
+let J = document.getElementById('J');
+let M = document.getElementById('M');
+let Ñ = document.getElementById('Ñ');
+let O = document.getElementById('O');
+let P = document.getElementById('P');  
+let Q = document.getElementById('Q');
+let R = document.getElementById('R');
+let S = document.getElementById('S');
+let T = document.getElementById('T');
+let V = document.getElementById('V');
+let W = document.getElementById('W');
+let X = document.getElementById('X');
+let Y = document.getElementById('Y');
+let Z = document.getElementById('Z');
+let E = document.getElementById('E');
 
 let banG = true;
 let banP = true;
@@ -59,11 +83,18 @@ let tieneLetras = false;
 let arrError = [];
 
 let palabraRandom ;
+
+let letraPresionadaMobil;
+let teclaQue;
 // Funciones -----------------
 
 function juegoNuevo(){
     crearDivVacio(palabraRandom);
-    mostrarLetras();
+    if(window.innerWidth > 1020){
+        mostrarLetras();
+    }else{
+        mostrarMobil();
+    }
     
 }
 
@@ -82,6 +113,8 @@ function reiniciar(){
     eliminarMensajes();
     palabraRandom = '';
     palabraInput = '';
+    teclaQue = '';
+    letraPresionadaMobil = '';
 }
 
 function crearArr(arg){
@@ -249,6 +282,31 @@ function letrasIguales(letra,palabra){
     }
 }
 
+function mostrarCon(arg){
+    console.log(arg);
+}
+
+function asignarPalabra(){
+    palabraRandom = sortearPalabras();
+}
+
+function palabraNueva(){
+    palabraRandom = agregarPalabra.value;
+
+    if(palabraRandom.length>0){
+        palabras.push(palabraInput);
+        tieneLetras=true;
+    }else{
+        alert('Por favor ingrese una palabra');
+    }
+    
+}
+
+function blanquearInput(){
+agregarPalabra.value = '';
+
+}
+
 function letraPresionada(){   // Obtiene la letra presionada por teclado
     document.addEventListener('keydown', (e)=>{
         let teclaPresionada = e.key.toLocaleUpperCase();
@@ -257,18 +315,59 @@ function letraPresionada(){   // Obtiene la letra presionada por teclado
         if(code >= 65 && code <= 90 || code === 192){
             if(redex.test(teclaPresionada)){
                 console.log('Tecla Presionada es: ' + teclaPresionada + ' ' + typeof(code))
-                return code;
+                return teclaPresionada;
             }
         }
     });
 }
 
-function mostrarCon(arg){
-    console.log(arg);
+function probra(){
+    document.addEventListener('click',()=>{
+        return teclaQue;
+    })
 }
 
-function asignarPalabra(){
-    palabraRandom = sortearPalabras();
+function teclaMobil(id){
+    let key = document.querySelector(id).value;
+    console.log(key);
+    teclaQue = key;
+}
+
+
+function mostrarMobil(){
+    document.addEventListener('click',()=>{
+
+        letraPresionadaMobil = teclaQue;    
+        let palabra = palabraRandom.toUpperCase();
+        let index = palabra.indexOf(letraPresionadaMobil);
+        let listInput = document.getElementsByClassName('p-letras');
+
+        if(letraPresionadaMobil != undefined){
+            console.log(letraPresionadaMobil+' dentro de mosMobil');
+            if(palabra.includes(letraPresionadaMobil)===true){
+                if(conE <10){
+                    ingresarLetra(letraPresionadaMobil,index);   
+                    console.log(conG); 
+                    conG = conG + 1;
+                }
+                
+            }
+             else{
+                error(letraPresionadaMobil,palabra);
+            }
+            if(palabra.includes(letraPresionadaMobil) === true){
+                letrasIguales(letraPresionadaMobil,palabra);
+            }   
+            if(conE === 10){
+                mensajePerdio();
+            }
+            gano(listInput,palabra);
+            vidas(conE);
+        }else{
+            console.log(letraPresionadaMobil+' dentro de mosMobil');
+        }
+    });
+            
 }
 
 function mostrarLetras(){
@@ -305,29 +404,12 @@ function mostrarLetras(){
     });
 }
 
-function palabraNueva(){
-    palabraRandom = agregarPalabra.value;
-
-    if(palabraRandom.length>0){
-        palabras.push(palabraInput);
-        tieneLetras=true;
-    }else{
-        alert('Por favor ingrese una palabra');
-    }
-    
-}
-
-function blanquearInput(){
-agregarPalabra.value = '';
-
-}
 // Eventos Botones ----------------
 
 btnIniciar.addEventListener('click',()=>{
     paginaInicial.style.display = 'none';
     paginaJuego.style.display = 'flex';
     reiniciar();
-    inputImaginario.focus();
     asignarPalabra();
     juegoNuevo();    
 });
@@ -453,6 +535,8 @@ function vidas(arg){
 // crearRectangulo(50,15,150,5,'#0A3871'); // trabesaño
 // crearRectangulo(170,15,5,20,'#0A3871'); //soga
 // crearRectangulo(169,65,5,40,'#0A3871');  ///cuerpo
+
+// Funciones Teclado Mobile
 
 
 
