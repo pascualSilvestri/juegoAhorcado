@@ -70,6 +70,7 @@
     background-color:#0A3871;
     padding:10px;
     border-radius: 20px;
+    margin-bottom: 5px;
 }
 .mensaje-final-perdio-pala{
     font-size: 1em;
@@ -79,6 +80,7 @@
     padding:10px;
     border-radius: 20px;
     text-align: center;
+    margin-top:5px;
 }
 
 #imaginario{
