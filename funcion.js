@@ -1,6 +1,6 @@
 // Definir variables 
 let palabras = [
-    'pezcado',
+    'pescado',
     'hormiga',
     'pedazo',
     'tortuga',
@@ -21,7 +21,13 @@ let palabras = [
     'llave',
     'carro',
     'perro',
-    'password'
+    'password',
+    'siluetas',
+    'bandera',
+    'tuerca',
+    'sapo',
+    'sopa',
+    'perla'
 ];
 
 let paginaInicial = document.getElementById('pagina-inicial'); //pagina inicial
