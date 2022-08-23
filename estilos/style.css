@@ -55,6 +55,10 @@ body{
 #img-logo{
     margin-left: 80px;
 }
+#img-logo2{
+    margin-left: 80px;
+    display:none;
+}
 
 #main-inicial{
     max-width: 1200px;

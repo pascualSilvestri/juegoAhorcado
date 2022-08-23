@@ -551,6 +551,8 @@ let contBtnColor = document.querySelector('.cambio-color');
 let btnColor = document.querySelector('.btn-color');
 let body = document.querySelector('body');
 let letra = document.querySelector('.letras');
+let img = document.querySelector('#img-logo');
+let img2 = document.querySelector('#img-logo2');
 let ban = true;
 
 
@@ -566,6 +568,8 @@ function mueveBtnColor(){
         cambioClass(contBtnColor, 'colorBlanco','colorAzul');
         cambioClass(btnColor, 'colorAzul','colorBlanco');
         cambioClass(body, 'colorAzul','colorBlanco');
+        img2.style.display = 'flex';
+        img.style.display = 'none';
         ban = false;
     }else
     if(ban == false){
@@ -573,6 +577,8 @@ function mueveBtnColor(){
         cambioClass(contBtnColor,'colorAzul','colorBlanco');
         cambioClass(btnColor, 'colorBlanco','colorAzul');
         cambioClass(body, 'colorBlanco','colorAzul');
+        img.style.display = 'flex';
+        img2.style.display = 'none';
         ban = true;
     }
     
