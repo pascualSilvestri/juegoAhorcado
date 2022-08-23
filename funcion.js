@@ -51,29 +51,29 @@ let inputImaginario = document.querySelector('#imaginario');
 let keyMobil = document.querySelectorAll(".keys");
 let conE = 0;
 
-let A = document.getElementById('A');
-let B = document.getElementById('B');
-let C = document.getElementById('C');
-let D = document.getElementById('D');
-let F = document.getElementById('F');
-let G = document.getElementById('G');
-let H = document.getElementById('H');
-let I = document.getElementById('I');
-let J = document.getElementById('J');
-let M = document.getElementById('M');
-let Ñ = document.getElementById('Ñ');
-let O = document.getElementById('O');
-let P = document.getElementById('P');  
-let Q = document.getElementById('Q');
-let R = document.getElementById('R');
-let S = document.getElementById('S');
-let T = document.getElementById('T');
-let V = document.getElementById('V');
-let W = document.getElementById('W');
-let X = document.getElementById('X');
-let Y = document.getElementById('Y');
-let Z = document.getElementById('Z');
-let E = document.getElementById('E');
+// let A = document.getElementById('A');
+// let B = document.getElementById('B');
+// let C = document.getElementById('C');
+// let D = document.getElementById('D');
+// let F = document.getElementById('F');
+// let G = document.getElementById('G');
+// let H = document.getElementById('H');
+// let I = document.getElementById('I');
+// let J = document.getElementById('J');
+// let M = document.getElementById('M');
+// let Ñ = document.getElementById('Ñ');
+// let O = document.getElementById('O');
+// let P = document.getElementById('P');  
+// let Q = document.getElementById('Q');
+// let R = document.getElementById('R');
+// let S = document.getElementById('S');
+// let T = document.getElementById('T');
+// let V = document.getElementById('V');
+// let W = document.getElementById('W');
+// let X = document.getElementById('X');
+// let Y = document.getElementById('Y');
+// let Z = document.getElementById('Z');
+// let E = document.getElementById('E');
 
 let banG = true;
 let banP = true;
@@ -545,10 +545,40 @@ function vidas(arg){
 // crearRectangulo(170,15,5,20,'#0A3871'); //soga
 // crearRectangulo(169,65,5,40,'#0A3871');  ///cuerpo
 
-// Funciones Teclado Mobile
+// Funciones Cmabia Color
+
+let contBtnColor = document.querySelector('.cambio-color');
+let btnColor = document.querySelector('.btn-color');
+let body = document.querySelector('body');
+let letra = document.querySelector('.letras');
+let ban = true;
 
 
+function cambioClass(elemento,claseAdd,claseRemove){
+    elemento.classList.add(claseAdd);
+    elemento.classList.remove(claseRemove);
+}
 
+function mueveBtnColor(){
+    
+    if(ban == true){
+        contBtnColor.style.justifyContent = 'flex-end';
+        cambioClass(contBtnColor, 'colorBlanco','colorAzul');
+        cambioClass(btnColor, 'colorAzul','colorBlanco');
+        cambioClass(body, 'colorAzul','colorBlanco');
+        ban = false;
+    }else
+    if(ban == false){
+        contBtnColor.style.justifyContent = 'flex-start';
+        cambioClass(contBtnColor,'colorAzul','colorBlanco');
+        cambioClass(btnColor, 'colorBlanco','colorAzul');
+        cambioClass(body, 'colorBlanco','colorAzul');
+        ban = true;
+    }
+    
+}
+
+btnColor.addEventListener('click',mueveBtnColor);
 
 
 

@@ -37,6 +37,7 @@
     color:#0A3871;
     font-weight: bold;
     font-size: 1.7em; 
+    border-radius: 20px;
 }
 
 #ingresar-palabra::placeholder{
@@ -73,6 +74,7 @@
     font-size: 1.3em;
     font-weight: bold;
     cursor: pointer;
+    border:3px solid #E5E5E5;
 }
 
 
