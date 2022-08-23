@@ -184,10 +184,12 @@ function eliminarMensajes(){
 function eliminarMensajePerdio(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let perdio = document.querySelector('.mensaje-final-perdio');
+    let p2 = document.querySelector(".mensaje-final-perdio-pala");
 
     if(mensajeFinal.innerHTML.length > 0) {
     mensajeFinal.style.display = 'none';
     mensajeFinal.removeChild(perdio);
+    mensajeFinal.removeChild(p2);
     }
     console.log(mensajeFinal.innerHTML);
 }
@@ -195,7 +197,7 @@ function eliminarMensajePerdio(){
 function eliminarMensajeGano(){
     let mensajeFinal = document.querySelector('.mensaje-final');
     let gano = document.querySelector('.mensaje-final-gano');
-    console.log(mensajeFinal.innerHTML);
+
 
     if(mensajeFinal.innerHTML.length > 0) {
     mensajeFinal.style.display = 'none';
